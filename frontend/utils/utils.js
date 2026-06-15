@@ -1,29 +1,15 @@
-import { BACKEND_URL } from '../secrets.js';
-
-export function getUser() {
-    const user = sessionStorage.getItem('mapUser');
-    if (user) {
-        return JSON.parse(user);
-    } else {
-        return null;
-    }
-}
-
-export function setUser(user) {
-    sessionStorage.setItem('mapUser', JSON.stringify(user));
-}
-
-export async function getUserActivities() {
-    const activities = sessionStorage.getItem('mapUserActivities');
-    if (activities) {
-        return JSON.parse(activities);
-    } else {
-        const token = getUser()?.access_token;
-        const response = await fetch(`${BACKEND_URL}/activities?access_token=${token}`, {
-            method: 'GET'
-        });
-        const activities = await response.json();
-        sessionStorage.setItem('mapUserActivities', JSON.stringify(activities));
-        return activities;
+export function getColorForActivityType(activityType) {
+    switch (activityType.toLowerCase()) {
+        case 'run':
+            return '#575761';
+        case 'walk':
+            return '#648381';
+        case 'hike':
+            return '#8acb88';
+        case 'ride':
+            return '#ffbf46';
+        default:
+            console.warn(`Unknown activity type: ${activityType}, using default color.`);
+            return '#1177cc';
     }
 }

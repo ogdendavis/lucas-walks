@@ -9,19 +9,22 @@
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     </head>
     <body>
-        <header>
-            This should go above the map
+        <header class="header legend">
+            <span class="activity walk">--walk--</span> <span class="activity hike">--hike--</span> <span class="activity run">--run--</span> <span class="activity ride">--ride--</span>
         </header>
         <main>
             <div id="map"></div>
         </main>
         <footer>
-            <button onClick="sessionStorage.clear(); window.location.href='login.html';">Log out</button>
+            Gotta go to <a href="https://www.strava.com/">Strava</a> to log out, because their oauth is dumb
         </footer>
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <!-- Utility script to handle poylines -->
         <script src="scripts/polyline-encoded.js"></script>
+        <!-- Apply legend styles -->
+        <script src="scripts/apply-legend-styles.js" type="module"></script>
+        <!-- Main -->
         <script src="scripts/main.js" type="module"></script>
     </body>
 </html>

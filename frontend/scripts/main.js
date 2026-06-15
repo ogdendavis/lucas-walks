@@ -1,4 +1,5 @@
-import { getUser, getUserActivities } from '../utils/utils.js';
+import { getUser, getUserActivities } from '../utils/api.js';
+import { getColorForActivityType } from '../utils/utils.js';
 
 // See if we're logged in
 let user = getUser();
@@ -11,9 +12,9 @@ if (!user) {
 const map = L.map('map').setView([40.685, -73.977], 1);
 
 // Add OpenStreetMap tiles to the map
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     referrerPolicy: 'strict-origin'
 }).addTo(map);
 
@@ -42,7 +43,7 @@ async function loadActivities() {
             // Add the activity polyline to the map with a popup showing the info
             L.Polyline.fromEncoded(
                 activity.map.summary_polyline,
-                {color: '#1177cc', weight: 3, opacity: 0.7}
+                {color: getColorForActivityType(activityType), weight: 3, opacity: 0.8}
             ).bindPopup(`<b>${activityType}</b><br>${activityDate}<br>${activityDistance} km`)
             .addTo(map);
         }
