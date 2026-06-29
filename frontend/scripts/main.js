@@ -1,12 +1,5 @@
-import { getUser, getUserActivities } from '../utils/api.js';
 import { getColorForActivityType } from '../utils/utils.js';
-
-// See if we're logged in
-let user = getUser();
-if (!user) {
-    // If not, redirect to the login page
-    window.location.href = 'login.html';
-}
+import activities from '../data/activities.json' with { type: 'json' };
 
 // Relies on leaflet.js script in the HTML file
 const map = L.map('map').setView([40.685, -73.977], 1);
@@ -29,24 +22,18 @@ if (navigator.geolocation) {
     });
 }
 
-// get the user's activities from session storage or the backend and add them to the map
-async function loadActivities() {
-    // Get the user's activities from session storage or the backend
-    const activities = await getUserActivities();
-    // Loop through the activities and add them to the map
-    activities.forEach(activity => {
-        if (activity?.map?.summary_polyline) {
-            // Extract info from the activity object (use offset to get local date of the activity)
-            const activityDate = new Date(new Date(activity.start_date).getTime() + (activity.utc_offset * 1000)).toISOString().split('T')[0];
-            const activityType = activity.sport_type || activity.type;
-            const activityDistance = (activity.distance / 1000).toFixed(2);
-            // Add the activity polyline to the map with a popup showing the info
-            L.Polyline.fromEncoded(
-                activity.map.summary_polyline,
-                {color: getColorForActivityType(activityType), weight: 3, opacity: 0.8}
-            ).bindPopup(`<b>${activityType}</b><br>${activityDate}<br>${activityDistance} km`)
-            .addTo(map);
-        }
-    });
-}
-loadActivities();
+// Loop through the activities and add them to the map
+activities.forEach(activity => {
+    if (activity?.map?.summary_polyline) {
+        // Extract info from the activity object (use offset to get local date of the activity)
+        const activityDate = new Date(new Date(activity.start_date).getTime() + (activity.utc_offset * 1000)).toISOString().split('T')[0];
+        const activityType = activity.sport_type || activity.type;
+        const activityDistance = (activity.distance / 1000).toFixed(2);
+        // Add the activity polyline to the map with a popup showing the info
+        L.Polyline.fromEncoded(
+            activity.map.summary_polyline,
+            {color: getColorForActivityType(activityType), weight: 3, opacity: 0.8}
+        ).bindPopup(`<b>${activityType}</b><br>${activityDate}<br>${activityDistance} km`)
+        .addTo(map);
+    }
+});
