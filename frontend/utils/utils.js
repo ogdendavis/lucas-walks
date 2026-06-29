@@ -1,11 +1,10 @@
 export function getColorForActivityType(activityType) {
     switch (activityType.toLowerCase()) {
         case 'run':
-            return '#575761';
+            return '#bb5761';
         case 'walk':
-            return '#648381';
         case 'hike':
-            return '#8acb88';
+            return '#648381';
         case 'ride':
             return '#ffbf46';
         default:
