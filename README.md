@@ -33,9 +33,14 @@ To run it:
     $ cd ../build # if you're coming from the strava-data folder
     $ python extract-strava-data.py
     ```
-5. Run/build the frontend locally:
+5. Run the frontend locally to check things out:
     ```bash
     $ cd ../frontend # if you're coming from the build folder
     $ npx parcel src/index.html
+    <Go to http://localhost:1234/ in the browser to make sure it looks good>
+    ```
+6. Build the frontend
+    ```bash
+    $ npx parcel build src/index.html # in the frontend folder
     <Go to http://localhost:1234/ in the browser to make sure it looks good>
     ```
