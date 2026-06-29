@@ -36,6 +36,6 @@ To run it:
 5. Run/build the frontend locally:
     ```bash
     $ cd ../frontend # if you're coming from the build folder
-    $ npx parcel index.html
+    $ npx parcel src/index.html
     <Go to http://localhost:1234/ in the browser to make sure it looks good>
     ```
