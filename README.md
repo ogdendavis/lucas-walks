@@ -33,4 +33,9 @@ To run it:
     $ cd ../build # if you're coming from the strava-data folder
     $ python extract-strava-data.py
     ```
-
+5. Run/build the frontend locally:
+    ```bash
+    $ cd ../frontend # if you're coming from the build folder
+    $ npx parcel index.html
+    <Go to http://localhost:1234/ in the browser to make sure it looks good>
+    ```
